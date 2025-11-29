@@ -1,0 +1,29 @@
+bootJar {
+    enabled = false
+    mainClass = ''
+}
+
+dependencies {
+
+    // https://mvnrepository.com/artifact/org.bouncycastle/bc-fips
+    implementation group: 'org.bouncycastle', name: 'bc-fips', version: '1.0.2.1'
+
+    // https://mvnrepository.com/artifact/org.bouncycastle/bc-fips-debug
+    implementation group: 'org.bouncycastle', name: 'bc-fips-debug', version: '1.0.2.1'
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-fips
+    implementation ('org.bouncycastle:bcpkix-fips:1.0.5') {
+//        exclude group: 'org.bouncycastle', module: 'bc-fips'
+    }
+    // https://mvnrepository.com/artifact/org.bouncycastle/bctls-fips
+    implementation group: 'org.bouncycastle', name: 'bctls-fips', version: '1.0.12.1'
+
+// https://mvnrepository.com/artifact/org.bouncycastle/bcpg-fips
+    implementation group: 'org.bouncycastle', name: 'bcpg-fips', version: '1.0.5.1'
+// https://mvnrepository.com/artifact/org.bouncycastle/bcmail-fips
+    implementation group: 'org.bouncycastle', name: 'bcmail-fips', version: '1.0.3'
+
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcpqc-addon-fips
+    implementation group: 'org.bouncycastle', name: 'bcpqc-addon-fips', version: '1.0.0'
+
+    implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
+}

@@ -1,0 +1,6 @@
+
+
+bootJar {
+    enabled = true
+}
+

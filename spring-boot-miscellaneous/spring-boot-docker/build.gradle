@@ -1,0 +1,33 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar {
+    enabled = true
+}
+
+bootBuildImage {
+    enabled = false
+//    imageName = 'my-application:latest'
+//    exposedPorts = ['8080']
+//    builder = 'paketobuildpacks/builder:base'
+//    environment = [
+////            'BP_JVM_VERSION': '17' // Example: Set JVM version
+//    ]
+    // Expose ports for your application
+
+
+}
+
+tasks.register('buildCustomImage', Exec) {
+    group = 'docker'
+    description = 'Builds a Docker image using the custom Dockerfile.'
+    commandLine 'docker', 'build', '-t', 'first:latest', '.'
+//    ,  '-f', '.', '.'
+}
+
+
+//tasks.named('bootBuildImage') {
+//    enabled = false
+//}
