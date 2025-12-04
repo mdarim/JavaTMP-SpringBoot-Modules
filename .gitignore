@@ -1,5 +1,6 @@
 .gradle
 build/
+bin/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -35,6 +36,8 @@ out/
 ### Default Logs ###
 /logs/
 logs/
-
+/bin/
 *.hprof
 java_pid*
+
+!**/bin/

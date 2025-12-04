@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: cloud-service-resilience4j
-  config:
-    import: optional:configserver:http://localhost:8071
-  profiles:
-    active: default

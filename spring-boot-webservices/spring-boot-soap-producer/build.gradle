@@ -1,7 +1,5 @@
 
 
-sourceCompatibility = JavaVersion.VERSION_23
-
 // tag::xsd[]
 sourceSets {
     main {
