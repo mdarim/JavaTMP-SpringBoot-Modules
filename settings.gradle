@@ -140,14 +140,6 @@ include 'spring-boot-data:spring-boot-jpa-relations'
 //include 'spring-boot-cloud:spring-cloud-stream:spring-boot-cloud-stream-kafka'
 //include 'spring-boot-cloud:spring-cloud-stream:spring-boot-cloud-stream-kafka-consumer'
 
-//include 'spring-boot-cryptography-collection:spring-boot-cryptography-handon-examples'
-//include 'spring-boot-cryptography-collection:spring-boot-cryptography-workshop-bouncycastle'
-//include 'spring-boot-cryptography-collection:spring-boot-cryptography-bouncycastle-examples'
-//include 'spring-boot-cryptography-collection:spring-boot-cryptography-Bouncy-Castle-FIPS'
-//include 'spring-boot-cryptography-collection:spring-boot-cryptography-bc-fips'
-//include 'spring-boot-cryptography-collection:spring-boot-beginning-cryptography-with-java'
-//include 'spring-boot-cryptography-collection:spring-boot-cryptography-cms'
-
 //include 'spring-boot-projects:spring-boot-native-storage'
 //
 //rootProject.children.each {project ->
