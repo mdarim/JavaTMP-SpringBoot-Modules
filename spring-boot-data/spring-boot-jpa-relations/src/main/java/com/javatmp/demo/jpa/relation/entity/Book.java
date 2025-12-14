@@ -1,22 +1,27 @@
 package com.javatmp.demo.jpa.relation.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "book")
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "book_id")
-    private Long id;
+    private UUID id;
 
     @Column(nullable = false)
     private String title;
@@ -25,10 +30,6 @@ public class Book {
     private Integer totalPages;
     private Double rating;
     private Date publishedDate;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "photo_id")
-    private Photo photo;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

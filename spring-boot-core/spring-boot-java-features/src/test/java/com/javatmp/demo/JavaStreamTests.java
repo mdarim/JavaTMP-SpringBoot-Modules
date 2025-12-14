@@ -27,11 +27,10 @@ public class JavaStreamTests {
     void flatMapStreamTest() {
 
         List<Integer> nums = Stream.of(
-                        List.of(1, 2, 3, 4),
-                        List.of(10, 11, 23, 8),
-                        List.of(4, 7, 9, 1))
-                .flatMap(Collection::stream)
-                .toList();
+                List.of(1, 2, 3, 4),
+                List.of(10, 11, 23, 8),
+                List.of(4, 7, 9, 1))
+                .flatMap(Collection::stream).toList();
         Integer max = nums.stream().max(Integer::compareTo).get();
 
         System.out.println("max is = " + max);
@@ -40,13 +39,13 @@ public class JavaStreamTests {
 
     @Test
     void removeDuplicatesTest() {
-        List<String> stringNumbers = Arrays.asList("1", "2", "2", "4", "5", "4",
-                "5", "3");
+        List<String> stringNumbers = Arrays.asList("1", "2", "2", "4", "5", "4", "5", "3");
         List<String> unique = stringNumbers.stream()
-                .collect(Collectors.toMap(String::valueOf, Function.identity(),
-                        (o1, o2) -> o1))
-                .values().stream()
-                .toList();
+                .collect(Collectors.toMap(
+                        String::valueOf,
+                        Function.identity(),
+                        (o1, o2) -> o1)
+                ).values().stream().toList();
 
         System.out.println(unique); // Output: [1, 2, 3, 4, 5]
 

@@ -8,30 +8,23 @@ buildscript {
 plugins {
     id 'java'
     id 'idea'
-    id 'eclipse'
     id 'org.springframework.boot' version "${springBoot}" apply false
 }
 
 apply plugin: 'io.spring.dependency-management'
+//
+//tasks.withType(JavaCompile).configureEach {
+//    options.compilerArgs.addAll([
+//            '--add-exports', 'java.base/sun.security.x509=ALL-UNNAMED'
+//    ])
+//}
+//
+//tasks.withType(JavaExec).configureEach {
+//    jvmArgs.addAll([
+//            '--add-exports', 'java.base/sun.security.x509=ALL-UNNAMED'
+//    ])
+//}
 
-tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs.addAll([
-            '--add-exports', 'java.base/sun.security.x509=ALL-UNNAMED'
-    ])
-}
-
-tasks.withType(JavaExec).configureEach {
-    jvmArgs.addAll([
-            '--add-exports', 'java.base/sun.security.x509=ALL-UNNAMED'
-    ])
-}
-
-// also https://stackoverflow.com/questions/28404149/how-to-download-javadocs-and-sources-for-jar-using-gradle-2-0
-eclipse {
-    classpath {
-        downloadSources = true
-    }
-}
 // read more about idea plugin in https://docs.gradle.org/current/userguide/idea_plugin.html
 idea {
     module {
@@ -73,7 +66,7 @@ subprojects {
 
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter'
-        implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+//        implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
@@ -83,8 +76,8 @@ subprojects {
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-        implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
-        implementation 'org.glassfish.jaxb:jaxb-runtime'
+//        implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
+//        implementation 'org.glassfish.jaxb:jaxb-runtime'
 
     }
 
@@ -92,7 +85,7 @@ subprojects {
         all {
             // https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-configure-log4j-for-logging
             // https://stackoverflow.com/questions/59629214/caused-by-org-apache-logging-log4j-loggingexception-log4j-slf4j-impl-cannot-be
-            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+//            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         }
         compileOnly {
             extendsFrom annotationProcessor
@@ -121,4 +114,25 @@ subprojects {
 //    exclude '**/*'
 //}
 //
-//test.onlyIf { false == true }
+
+tasks.register('fullClean') {
+    doLast {
+        rootProject.subprojects.each { subproject ->
+            println "Performing a full clean on: ${rootDir}/${subproject.name}"
+            delete "${rootDir}/${subproject.name}/bin"
+            delete "${rootDir}/${subproject.name}/.classpath"
+            delete "${rootDir}/${subproject.name}/.project"
+            delete "${rootDir}/${subproject.name}/.settings"
+            delete "${rootDir}/${subproject.name}/build"
+        }
+
+        println "Performing a full clean on: ${project.rootDir}"
+        delete "${rootDir}/bin"
+        delete "${rootDir}/.classpath"
+        delete "${rootDir}/.project"
+        delete "${rootDir}/.settings"
+        delete "${rootDir}/build"
+//        delete "${rootDir}/.gradle"
+        delete "${rootDir}/gradle"
+    }
+}

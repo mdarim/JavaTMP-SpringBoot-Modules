@@ -1,5 +1,7 @@
 package com.javatmp.demo.jpa.relation.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import jakarta.persistence.*;
@@ -8,6 +10,8 @@ import java.util.Collection;
 @Data
 @Entity
 @Table(name = "category")
+@Builder
+@AllArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
