@@ -99,11 +99,11 @@ subprojects {
 
     // Skips tests if you do not provide prod project property from command line
     // ex: `./gradlew build -Pprod`
-//    tasks.named('test') {
-//        onlyIf {
-//            project.hasProperty('prod')
-//        }
-//    }
+    tasks.named('test') {
+        onlyIf {
+            project.hasProperty('prod')
+        }
+    }
 
 }
 //
@@ -124,6 +124,7 @@ tasks.register('fullClean') {
             delete "${rootDir}/${subproject.name}/.project"
             delete "${rootDir}/${subproject.name}/.settings"
             delete "${rootDir}/${subproject.name}/build"
+            delete "${rootDir}/${subproject.name}/logs"
         }
 
         println "Performing a full clean on: ${project.rootDir}"
