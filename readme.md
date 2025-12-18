@@ -12,11 +12,11 @@ It’s ideal for Java developers looking to adopt a modular approach with Spring
 
 * Organizes the application into logical modules (e.g., `core`, `data`, `services`, `web`) to improve clarity and separation of concerns.
 * Each module can be developed, built, and tested independently.
-* Makes use of **Gradle multi-module project structure**, enabling shared configuration and consistent dependency management across modules. ([Home][1])
+* Makes use of **Gradle multi-module project structure**, enabling shared configuration and consistent dependency management across modules.
 
 ### 🚀 Spring Boot Integration
 
-* Built on **Spring Boot**, leveraging its powerful features for rapid application development and production-grade services. ([GitHub][2])
+* Built on **Spring Boot**, leveraging its powerful features for rapid application development and production-grade services.
 * Easily extendable with Spring Boot starters (Web, Data, Security, etc.).
 
 ### 🧠 Clean & Maintainable Code
@@ -44,7 +44,7 @@ and Spring configurations and is aggregated under the parent project’s `build.
 
 A multi-module structure makes large applications more manageable. Core reasons to adopt this pattern:
 
-* **Modularity**: Each module is a distinct part of your application with a clear purpose. ([GeeksforGeeks][3])
+* **Modularity**: Each module is a distinct part of your application with a clear purpose.
 * **Reusability**: Modules can be shared across projects or services.
 * **Scalability**: Teams can work independently on different modules with minimal merge conflicts.
 * **Flexibility**: Easier to integrate testing, CI/CD, and versioning strategies.
