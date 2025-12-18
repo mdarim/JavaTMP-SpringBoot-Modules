@@ -1,0 +1,6 @@
+logging:
+  level:
+    org.springframework: ${LOG_LEVEL:INFO}
+    com.javatmp: DEBUG
+
+spring.batch.job.enabled: true

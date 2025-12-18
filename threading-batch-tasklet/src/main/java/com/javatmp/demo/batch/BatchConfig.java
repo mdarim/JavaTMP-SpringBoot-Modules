@@ -1,7 +1,5 @@
 package com.javatmp.demo.batch;
 
-import org.springframework.batch.core.configuration.annotation.EnableJdbcJobRepository;
-import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.job.parameters.RunIdIncrementer;
@@ -28,33 +26,12 @@ public class BatchConfig {
                 .build();
     }
 
-    @Bean(name = "job2")
-    public Job job2(JobRepository jobRepository
-            , Step step1, Step step2) {
-        return new JobBuilder("job2", jobRepository)
-                .incrementer(new RunIdIncrementer())
-//                .start(step1)
-                .start(step2)
-                .build();
-    }
-
     @Bean
     public Step step1(JobRepository jobRepository,
                           PlatformTransactionManager tm) {
         return new StepBuilder("step1", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("Hello from step1");
-                    return RepeatStatus.FINISHED;
-                }, tm)
-                .build();
-    }
-
-    @Bean
-    public Step step2(JobRepository jobRepository,
-                      PlatformTransactionManager tm) {
-        return new StepBuilder("step2", jobRepository)
-                .tasklet((contribution, chunkContext) -> {
-                    System.out.println("Hello from step2");
                     return RepeatStatus.FINISHED;
                 }, tm)
                 .build();

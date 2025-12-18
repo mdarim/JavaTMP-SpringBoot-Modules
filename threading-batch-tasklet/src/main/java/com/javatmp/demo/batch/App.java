@@ -1,11 +1,14 @@
 package com.javatmp.demo.batch;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.configuration.JobRegistry;
+import org.springframework.batch.core.BatchStatus;
+import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.JobExecution;
+import org.springframework.batch.core.job.parameters.JobParameters;
 import org.springframework.batch.core.job.parameters.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobOperator;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,33 +27,42 @@ public class App {
 
     @Bean
     public CommandLineRunner springBootMain(
+            final JobRepository jobRepository,
             final JobOperator jobOperator,
-            @Qualifier("job1") Job job1,
-            @Qualifier("job2") Job job2
+            @Qualifier("job1") Job job1
     ) throws Exception {
 
         return args -> {
             log.info("*** Start Spring Boot Batching Project ***");
-            log.info("job1 {}, job2 {}", job1, job2);
-            JobExecution job2Execution = jobOperator.start(job2, new JobParametersBuilder()
+            log.info("job1 {}", job1);
+
+            JobParameters jobParameters = new JobParametersBuilder()
                     .addLong("run.id", System.currentTimeMillis())
-                    .toJobParameters());
-            log.info("job2 started {}", job2Execution.getJobInstanceId());
+                    .toJobParameters();
 
-            TimeUnit.SECONDS.sleep(1);
+            JobExecution job1Execution = jobOperator.start(job1, jobParameters);
 
-            job2Execution = jobOperator.restart(job2Execution);
-            log.info("job2 restarted {}", job2Execution.getJobInstanceId());
-            // start job manually instead spring.batch.job.enabled: true
-//            JobExecution job1Execution = jobOperator.start(job1, new JobParametersBuilder()
-//                    .addLong("run.id", System.currentTimeMillis())
-//                    .toJobParameters());
-//            log.info("job1 started {}", job1Execution.getJobInstanceId());
+            log.info("job {} status is {}", job1Execution.getJobInstance().getJobName(),
+                    job1Execution.getStatus());
+
+            job1Execution.setStatus(BatchStatus.STOPPED);
+            job1Execution = jobOperator.startNextInstance(job1);
+
+
+//
+//            job1Execution = jobOperator.start(job1, new JobParameters());
+//            log.info("job {} status is {}", job1Execution.getJobInstance().getJobName(),
+//                    job1Execution.getStatus());
+
+//            JobExecution job2Execution = jobOperator.start(job2, new JobParameters());
+//            log.info("job {} status is {}", job2Execution.getJobInstance().getJobName(),
+//                    job2Execution.getStatus());
 
 //            IntStream.range(7, 17).forEach(s -> {
 //                JobExecution job = jobOperator.startNextInstance(helloJob);
 //                log.info("job started {}", job.getJobInstanceId());
 //            });
+
         };
     }
 }

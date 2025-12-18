@@ -1,0 +1,11 @@
+
+bootJar {
+    enabled = true
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+//    runtimeOnly 'com.h2database:h2'   // in-memory DB for Spring Batch metadata
+    runtimeOnly 'org.hsqldb:hsqldb'
+}

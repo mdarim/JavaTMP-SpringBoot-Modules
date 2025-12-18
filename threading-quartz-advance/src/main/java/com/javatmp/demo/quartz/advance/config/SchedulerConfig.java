@@ -2,7 +2,7 @@ package com.javatmp.demo.quartz.advance.config;
 
 import com.javatmp.demo.quartz.advance.component.SchedulerJobFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
+import org.springframework.boot.quartz.autoconfigure.QuartzProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

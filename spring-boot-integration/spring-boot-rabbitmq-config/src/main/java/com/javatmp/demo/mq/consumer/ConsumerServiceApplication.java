@@ -6,12 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableRabbit
-@SpringBootApplication(scanBasePackageClasses = {RabbitMQConfig.class, ConsumerServiceApplication.class})
+@SpringBootApplication(scanBasePackageClasses = {
+        RabbitMQConfig.class,
+        ConsumerServiceApplication.class
+})
 public class ConsumerServiceApplication {
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerServiceApplication.class, args);
-	}
-
-
+        SpringApplication.run(ConsumerServiceApplication.class, args);
+    }
 }

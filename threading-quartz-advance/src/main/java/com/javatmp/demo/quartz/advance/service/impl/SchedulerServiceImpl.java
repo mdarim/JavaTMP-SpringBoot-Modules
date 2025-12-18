@@ -37,41 +37,39 @@ public class SchedulerServiceImpl implements SchedulerService {
     public void startAllSchedulers() {
         log.debug("start all schedulers initializing");
         List<SchedulerJobInfo> jobInfoList = schedulerRepository.findAll();
-        if (jobInfoList != null) {
-            Scheduler scheduler = schedulerFactoryBean.getScheduler();
-            jobInfoList.forEach(jobInfo -> {
-                try {
-                    log.info("persistent job found : {}", jobInfo);
-                    JobDetail jobDetail = JobBuilder.newJob((Class<? extends QuartzJobBean>) Class.forName(jobInfo.getJobClass()))
-                            .withIdentity(jobInfo.getJobName(), jobInfo.getJobGroup()).build();
-                    log.info("job detail for job is : {}", jobDetail);
-                    log.info("job key is : {}, db.id : {}, db.jobName : {}", jobDetail.getKey(), jobInfo.getId(), jobInfo.getJobName());
-                    if (!scheduler.checkExists(jobDetail.getKey())) {
-                        log.info("we should create the job : {}", jobDetail.getKey());
-                        Trigger trigger;
-                        jobDetail = scheduleCreator.createJob((Class<? extends QuartzJobBean>) Class.forName(jobInfo.getJobClass()),
-                                false, context, jobInfo.getJobName(), jobInfo.getJobGroup());
+        Scheduler scheduler = schedulerFactoryBean.getScheduler();
+        jobInfoList.forEach(jobInfo -> {
+            try {
+                log.info("persistent job found : {}", jobInfo);
+                JobDetail jobDetail = JobBuilder.newJob((Class<? extends QuartzJobBean>) Class.forName(jobInfo.getJobClass()))
+                        .withIdentity(jobInfo.getJobName(), jobInfo.getJobGroup()).build();
+                log.info("job detail for job is : {}", jobDetail);
+                log.info("job key is : {}, db.id : {}, db.jobName : {}", jobDetail.getKey(), jobInfo.getId(), jobInfo.getJobName());
+                if (!scheduler.checkExists(jobDetail.getKey())) {
+                    log.info("we should create the job : {}", jobDetail.getKey());
+                    Trigger trigger;
+                    jobDetail = scheduleCreator.createJob((Class<? extends QuartzJobBean>) Class.forName(jobInfo.getJobClass()),
+                            false, context, jobInfo.getJobName(), jobInfo.getJobGroup());
 
-                        if (jobInfo.getCronJob() && CronExpression.isValidExpression(jobInfo.getCronExpression())) {
-                            trigger = scheduleCreator.createCronTrigger(jobInfo.getJobName(), new Date(),
-                                    jobInfo.getCronExpression(), SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
-                        } else {
-                            trigger = scheduleCreator.createSimpleTrigger(jobInfo.getJobName(), new Date(),
-                                    jobInfo.getRepeatTime(), SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
-                        }
-
-                        scheduler.scheduleJob(jobDetail, trigger);
-
+                    if (jobInfo.getCronJob() && CronExpression.isValidExpression(jobInfo.getCronExpression())) {
+                        trigger = scheduleCreator.createCronTrigger(jobInfo.getJobName(), new Date(),
+                                jobInfo.getCronExpression(), SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
                     } else {
-                        log.info("Job is already registered before we should update");
+                        trigger = scheduleCreator.createSimpleTrigger(jobInfo.getJobName(), new Date(),
+                                jobInfo.getRepeatTime(), SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
                     }
-                } catch (ClassNotFoundException e) {
-                    log.error("Class Not Found - {}", jobInfo.getJobClass(), e);
-                } catch (SchedulerException e) {
-                    log.error(e.getMessage(), e);
+
+                    scheduler.scheduleJob(jobDetail, trigger);
+
+                } else {
+                    log.info("Job is already registered before we should update");
                 }
-            });
-        }
+            } catch (ClassNotFoundException e) {
+                log.error("Class Not Found - {}", jobInfo.getJobClass(), e);
+            } catch (SchedulerException e) {
+                log.error(e.getMessage(), e);
+            }
+        });
     }
 
     @Override
