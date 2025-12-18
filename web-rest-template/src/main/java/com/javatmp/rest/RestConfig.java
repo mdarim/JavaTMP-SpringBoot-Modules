@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.restclient.RestTemplateBuilder;
+
 
 import java.time.Duration;
 
@@ -23,8 +25,8 @@ public class RestConfig {
     public RestTemplate restTemplate(
             @Qualifier("RestTemplateExplicit") RestTemplateBuilder builder) {
         return builder
-                .setConnectTimeout(Duration.ofMillis(3000))
-                .setReadTimeout(Duration.ofMillis(3000))
+                .connectTimeout(Duration.ofMillis(3000))
+                .readTimeout(Duration.ofMillis(3000))
                 .build();
     }
 

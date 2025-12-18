@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,7 +16,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Spring Boot Main Runner Class
  */
-@SpringBootApplication(exclude = {WebMvcAutoConfiguration.class})
+//@SpringBootApplication(exclude = {WebMvcAutoConfiguration.class})
+@SpringBootApplication
 @Slf4j
 public class RestDemoApplication {
 
@@ -34,11 +34,11 @@ public class RestDemoApplication {
             // https://reflectoring.io/spring-webclient/
             // https://stackoverflow.com/questions/48598233/deserialize-a-json-array-to-objects-using-jackson-and-webclient
             WebClient webClient = WebClient.builder()
-                    .baseUrl("http://localhost:8080/rest")
+                    .baseUrl("https://jsonplaceholder.typicode.com")
                     .defaultHeader(HttpHeaders.CONTENT_TYPE,
                             MediaType.APPLICATION_JSON_VALUE)
                     .build();
-            Mono<List<RestDto>> getAllMono = webClient.get().uri("/get")
+            Mono<List<RestDto>> getAllMono = webClient.get().uri("/posts")
                     .header(HttpHeaders.CONTENT_TYPE,
                             MediaType.APPLICATION_JSON_VALUE)
                     .retrieve()

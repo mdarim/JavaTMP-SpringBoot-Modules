@@ -16,9 +16,14 @@ import java.util.Map;
 public class RestDto {
     @EqualsAndHashCode.Include
     private Long id;
-    private int intField;
+
+    private Integer userId;
+    private String title;
+    private String body;
+
     private Integer integerField;
     private String stringField;
+
     private Date date;
     private LocalDate localDate;
     private LocalDateTime localDateTime;

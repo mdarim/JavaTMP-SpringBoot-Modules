@@ -4,13 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.boot.web.client.RestTemplateCustomizer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Collections;
 
 /**
  * Spring Boot Main Runner Class
