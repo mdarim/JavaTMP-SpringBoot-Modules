@@ -12,8 +12,8 @@ import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +37,7 @@ public class EmployeeServiceImplIntegrationTest {
     @Autowired
     private EmployeeService employeeService;
 
-    @MockBean
+    @MockitoBean
     private EmployeeRepository employeeRepository;
 
     @BeforeEach

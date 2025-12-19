@@ -1,6 +1,5 @@
 package com.javatmp.testing;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javatmp.testing.controller.EmployeeRestController;
 import com.javatmp.testing.entity.Employee;
 import com.javatmp.testing.service.EmployeeService;
@@ -10,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,8 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
-@WebMvcTest(value = EmployeeRestController.class,
-        excludeAutoConfiguration = SecurityAutoConfiguration.class)
+//@WebMvcTest(value = EmployeeRestController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@WebMvcTest(value = EmployeeRestController.class)
 public class EmployeeControllerIntegrationTest {
 
     @Autowired
@@ -41,7 +40,7 @@ public class EmployeeControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
-    @MockBean
+    @MockitoBean
     private EmployeeService service;
 
     @BeforeEach
