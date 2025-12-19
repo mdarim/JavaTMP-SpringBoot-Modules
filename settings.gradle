@@ -54,9 +54,11 @@ include 'threading-batch-chunk'
 include 'threading-batch-scheduler'
 
 include 'misc-validation'
+include 'misc-actuator'
+include 'misc-testing'
+
 //include 'misc-itext'
 //include 'misc-JasperReports'
-include 'misc-testing'
 //include 'misc-admin-server'
 //include 'misc-admin-client'
 //include 'misc-MapStruct'

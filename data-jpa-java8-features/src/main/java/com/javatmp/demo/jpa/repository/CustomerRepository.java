@@ -1,11 +1,10 @@
 package com.javatmp.demo.jpa.repository;
 
 import com.javatmp.demo.jpa.entity.Customer;
+import jakarta.persistence.LockModeType;
 import org.hibernate.LockOptions;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
+import org.hibernate.cfg.AvailableSettings;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.scheduling.annotation.Async;
 
@@ -25,6 +24,14 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Async
     CompletableFuture<Customer> findOneById(Long id);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @QueryHints(value = {
+            @QueryHint(name = HINT_FETCH_SIZE, value = "1"),
+            @QueryHint(name = HINT_CACHEABLE, value = "false"),
+            @QueryHint(name = AvailableSettings.JAKARTA_LOCK_TIMEOUT, value = "-2")
+    })
+    Stream<Customer> findByStatus(Integer status);
 
     @QueryHints(value = {
             @QueryHint(name = HINT_FETCH_SIZE, value = "100"),

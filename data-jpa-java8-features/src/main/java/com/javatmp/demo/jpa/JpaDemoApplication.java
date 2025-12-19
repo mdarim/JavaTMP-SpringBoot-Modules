@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.concurrent.Future;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -30,6 +31,15 @@ public class JpaDemoApplication implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... strings) throws Exception {
+
+        IntStream.of(0, 10).forEach(i -> {
+            repository.save(Customer.builder()
+                            .firstName("first name " + i)
+                            .lastName("last name " + i)
+                            .status(0)
+                    .build()
+            );
+        });
 
         // fetch an individual customer by ID
         Optional<Customer> customer1 = repository.findById(1L);
@@ -62,5 +72,12 @@ public class JpaDemoApplication implements CommandLineRunner {
         log.info("customer1 isPresent : {}", customer1.isPresent());
 
         customerStream.close();
+
+        Stream<Customer> oneByStatus = repository.findByStatus(0);
+        oneByStatus.findAny().ifPresent(customer -> {
+            log.info("Customer by select for update skip locked found : {}", customer);
+            repository.updateCustomerStatus(customer.getId(), 1);
+        });
+
     }
 }
