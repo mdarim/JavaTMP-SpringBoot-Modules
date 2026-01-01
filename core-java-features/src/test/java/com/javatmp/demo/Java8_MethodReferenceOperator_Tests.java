@@ -71,7 +71,7 @@ public class Java8_MethodReferenceOperator_Tests {
         List<Integer> numbers = Arrays.asList(5, 3, 50, 24, 40, 2, 9, 18);
         numbers.stream()
                 .sorted((a, b) -> a.compareTo(b))
-                .forEach((n)-> System.out.println(n));
+                .forEach(System.out::println);
 
         System.out.println("*** using references");
         numbers.stream()

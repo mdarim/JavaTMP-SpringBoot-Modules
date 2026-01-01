@@ -27,6 +27,20 @@ public class JavaStreamSummaryTests {
                 new Amount("Food", 15.0, 1),
                 new Amount("IT", 15.0, 1)
         );
+
+        Map<String, Double> totalByDept = transactions.stream()
+                .collect(Collectors.groupingBy(
+                        Amount::getCategory,
+                        Collectors.reducing(
+                                (double) 0,
+                                Amount::getValue,
+                                Double::sum
+                        )
+                ));
+
+        System.out.println(totalByDept);
+        System.out.println("**********************");
+
         Map<String, Summary> summaryMap = transactions.stream()
                 .collect(Collectors.groupingBy(
                         Amount::getCategory, // Key Mapper: Group by category name
@@ -48,12 +62,12 @@ public class JavaStreamSummaryTests {
 @AllArgsConstructor
 class Amount {
     private String category;
-    private double value;
-    private int count;
+    private Double value;
+    private Integer count;
 }
 @Data
 @AllArgsConstructor
 class Summary {
-    private double totalValue;
-    private int totalCount;
+    private Double totalValue;
+    private Integer totalCount;
 }

@@ -8,10 +8,10 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Data
-@Entity
-@Table(name = "category")
 @Builder
 @AllArgsConstructor
+@Entity
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,4 @@ public class Category {
 
     @ManyToMany(mappedBy = "categories")
     private Collection<Book> books;
-
 }

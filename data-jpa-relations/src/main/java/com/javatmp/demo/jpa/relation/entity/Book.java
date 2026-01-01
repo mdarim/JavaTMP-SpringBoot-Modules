@@ -31,7 +31,10 @@ public class Book {
     private Double rating;
     private Date publishedDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
     @JoinTable(
             name = "books_categories",
             joinColumns = @JoinColumn(name = "book_id"),

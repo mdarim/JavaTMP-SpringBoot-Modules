@@ -1,4 +1,8 @@
 
 dependencies {
-    implementation 'de.codecentric:spring-boot-admin-starter-server:3.1.5'
+    implementation 'de.codecentric:spring-boot-admin-starter-server:3.5.6'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure-classic'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }

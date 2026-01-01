@@ -83,11 +83,12 @@ subprojects {
         enabled = false
 //        mainClass = ''
     }
-    tasks.named('test') {
-        onlyIf {
-            project.hasProperty('prod')
-        }
-    }
+
+//    tasks.named('test') {
+//        onlyIf {
+//            project.hasProperty('prod')
+//        }
+//    }
 
 }
 
